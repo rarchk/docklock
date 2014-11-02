@@ -1,6 +1,6 @@
 #------------------------------------------------#
 #------------------- Dock Lock-------------------#
-# 			Security beyond Default				 #
+# 	Security beyond Default			 #
 # 
 #Authors : Ronak Kogta, Shashank Sahni, Gaurav Rajput#
 #  Following package uses gpg symmetric encryption alogrithm to encrypt your container images
