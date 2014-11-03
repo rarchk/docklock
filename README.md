@@ -18,13 +18,18 @@ docklock encrypt <imagename> <passphrase>
 docklock decrypt <imagename> <passphrase>
 ```	
 ###Workflow
+Base image 
+		-- Dockerfiles -- custom images -- containers
+						  					-- data only containers (volumes) 
+							 				-- normal epipheral containers (only for compute) 
+							
 A docker container can be seperated into two contexts:
 - Image
 	- Base Image, taken from popular registery 
 	- Properitetry Image, which takes this base registery, and builds a dev environment around it. *(To be encrypted)* 
-- Data  
+- Persistent Data   
 	- Basically volumes, in which your application stores data. *(To be encrypted)*
+	- should be stored somewhere safe, like S3/Dropbox/AnyOtherStorageService with zero knowledge principle.
+	- Or can stay in server... during runtime, which can be protected by firewalling the VM. 
 
-
-	  
 
