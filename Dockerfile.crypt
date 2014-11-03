@@ -1,0 +1,14 @@
+# Dockerfile Crypt 
+#
+# VERSION               0.1
+# DOCKER-VERSION        1.3
+
+from    ubuntu-ssh 
+# make sure that critical data gets stored in one volume
+VOLUME ["/crypt"]
+WORKDIR /crypt
+RUN pwd
+
+# Enter here your  private Repo Environment
+COPY plaintext.md /crypt/
+RUN cat plaintext.md  
