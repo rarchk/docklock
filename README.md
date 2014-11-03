@@ -18,12 +18,17 @@ docklock encrypt <imagename> <passphrase>
 docklock decrypt <imagename> <passphrase>
 ```	
 ###Workflow
+``` bash 
 Base image 
 		-- Dockerfiles -- custom images -- containers
 						  					-- data only containers (volumes) 
 							 				-- normal epipheral containers (only for compute) 
-							
+```							
 A docker container can be seperated into two contexts:
+
+- Dockerfiles 
+	- if application is small, all of images can be represented in this form. So just have to create 
+	  password protected archive
 - Image
 	- Base Image, taken from popular registery 
 	- Properitetry Image, which takes this base registery, and builds a dev environment around it. *(To be encrypted)* 
