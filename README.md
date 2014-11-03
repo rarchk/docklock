@@ -1,8 +1,7 @@
-docklock
-========
+
 ##Securing your containers... Beyond Default
 
-Docklock lets you encrypt your images and critical data, and allows a zero knowledge registery in third party registery services like quay.io. or docker public registery.  
+**Docklock** lets you encrypt your images and critical data, and allows a zero knowledge registery in third party registery services like quay.io. or docker public registery.  
 
 ###Inspiration
 With recent emergence of heartbleed & poodle bug, we need to consider take extra measures to protect our assets. We liked the spideroak's zero knowledge idea to tackle on the very issue. 
