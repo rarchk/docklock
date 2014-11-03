@@ -15,3 +15,18 @@ docklock
 docklock encrypt <imagename> <passphrase>
 docklock decrypt <imagename> <passphrase>
 ```	
+###Workflow
+A docker container can be seperated into two contexts:
+- Image
+	- Base Image, taken from popular registery 
+	- Properitetry Image, which takes this base registery, and builds a dev environment around it. *(To be encrypted)* 
+- Data  
+	- Basically volumes, in which your application stores data. *(To be encrypted)*
+
+
+ [Easy task, as we know where volumes are... ]
+
+
+[Tricky task, as these images will keep changing, plus also base images can change too] (keeping it static is the toughest job, though docker has simplifed the problem greatly)
+	  
+
