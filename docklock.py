@@ -3,7 +3,7 @@
 # 	Security beyond Default			 #
 # 
 #Authors : Ronak Kogta, Shashank Sahni, Gaurav Rajput#
-# Following package uses gpg symmetric encryption alogrithm to encrypt your container images
+#Following package uses gpg symmetric encryption alogrithm to encrypt your container images
 
 #!/usr/bin/env python
 import os,sys; 

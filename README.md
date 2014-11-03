@@ -1,7 +1,6 @@
 docklock
 ========
-
-##Securing your containers... Beyond
+##Securing your containers... Beyond Default
 ###Features for end-user 
 - Security for your system, if your critical applications like browsers, get compromised by providing container isolation.  
 - Security for your critical applications like bitcoin wallet, browser histories and other meta data., if your system gets compromised physically. 
