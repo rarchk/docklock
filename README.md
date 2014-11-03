@@ -24,7 +24,7 @@ Base image
 						  					-- data only containers (volumes) 
 							 				-- normal epipheral containers (only for compute) 
 ```							
-A docker container can be seperated into two contexts:
+A docker container can be seperated into three contexts:
 
 - Dockerfiles 
 	- if application is small, all of images can be represented in this form. So just have to create 
