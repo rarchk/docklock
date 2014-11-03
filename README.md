@@ -8,9 +8,11 @@ docklock
 
 ### Features for cloud user 
 - In general, private registries are secure, and uses ssl/tls channels to make your data private, but due to recent emergence of shellshock or poodle bugs, it will be precautionary if we enable extra layer of encryption on our images. 
+- So we provide a zero knowledge feature for registery services like quay.io etc.
  
 
-> Usage 
+####Usage 
+```bash 
 docklock encrypt <imagename> <passphrase>
 docklock decrypt <imagename> <passphrase>
-	
+```	
