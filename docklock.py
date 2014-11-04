@@ -18,12 +18,29 @@ class docklock:
 
 if __name__ == '__main__':
 	if len(sys.argv) < 4:
-		print 'Usage: docklock [SourceF] [action] [passphrase]'
+		print 'Usage: docklock <Action> <imageid> [passphrase]'
 		sys.exit(1);
 	
+	aufsList='';
+	depList=[]
+	wdir="/var/lib/docker"
+
+	# getting layers corresponding to this image 
+	for root, dirs, files in os.walk(wdir+"/aufs/layers"):
+		aufsList=files
+		
+	for i in aufsList: 
+		if(sys.argv[2] in i):
+			fp=open(wdir+"/aufs/layers/"+i,'r');
+			buff=fp.readlines();
+			fp.close();
+			depList.append(i);
+			depList+=buff;
+			break;
+	
 	engine=docklock();
-	if (sys.argv[2] == 'encrypt'):
-		engine.encrypt(sys.argv[1],sys.argv[3]);
-	elif (sys.argv[2] == 'decrypt'):
-		engine.decrypt(sys.argv[1],str(sys.argv[1].split('.')[:-1]),sys.argv[3]);
+	if (sys.argv[1] == 'encrypt'):
+		engine.encrypt(sys.argv[2],sys.argv[3],depList,wdir);
+	elif (sys.argv[1] == 'decrypt'):
+		engine.decrypt(sys.argv[2],sys.argv[3],depList,wdir);;
 		
