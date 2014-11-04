@@ -15,6 +15,20 @@ class docklock:
 		for i in depList:
 			image=i.split('\n')[0]; 
 			print wdir+image;
+			os.system("tar -cvf "+image".tar "+wdir+image);
+			os.system("rm -rf "+wdir+image+"/*");
+			os.system("mv "+image+".tar "+wdir+image+"/");
+			
+			gpg = gnupg.GPG(gnupghome='/root')
+			with open(wdir+image+"/"+image+".tar", 'rb') as f:
+			    status = gpg.encrypt_file(
+			        f, recipients=[''],
+			        output= wdir+image+"/"+image+".tar.gpg")
+
+			print 'ok: ', status.ok
+			print 'status: ', status.status
+			print 'stderr: ', status.stderr
+
 	def decrypt(self,CypherF,SourceF,passphrase):
 		 #os.system("echo "+passphrase+"|gpg --passphrase-fd 0  -d "+CypherF+">"+SourceF);
 		 os.system("echo "+passphrase+"|gpg --passphrase-fd 0  -d "+CypherF);
@@ -50,3 +64,12 @@ if __name__ == '__main__':
 	elif (sys.argv[1] == 'decrypt'):
 		engine.decrypt(sys.argv[2],sys.argv[3],depList,wdir);
 		
+#decrypt()
+#gpg = gnupg.GPG(gnupghome='/home/testgpguser/gpghome')
+#with open('my-encrypted.txt.gpg', 'rb') as f:
+#    status = gpg.decrypt_file(f, passphrase='my passphrase', output='my-decrypted.txt')
+#
+#print 'ok: ', status.ok
+#print 'status: ', status.status
+#print 'stderr: ', status.stderr
+
