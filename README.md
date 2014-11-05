@@ -16,6 +16,8 @@ With recent emergence of heartbleed & poodle bug, we need to consider take extra
 ```bash 
 docklock encrypt <imageid> 
 docklock decrypt <imageid> 
+docker push <imageName> #Default workflow
+docker pull <imageName>
 ```	
 ###Workflow
 ``` bash 
@@ -37,4 +39,6 @@ A docker container can be seperated into three contexts:
 	- should be stored somewhere safe, like S3/Dropbox/AnyOtherStorageService with zero knowledge principle.
 	- Or can stay in server... during runtime, which can be protected by firewalling the VM. 
 
-
+### Working with gpg 
+We use python gnupg(gnu pgp) library to encrypt the /var/lib/docker/aufs/diffs of particular image contexts. Docklock.py also 
+contains, a flexible way to set up key in your preferred storage location.   
