@@ -14,8 +14,8 @@ With recent emergence of heartbleed & poodle bug, we need to consider take extra
 
 ####Usage 
 ```bash 
-docklock encrypt <imageid> <passphrase>
-docklock decrypt <imageid> <passphrase>
+docklock encrypt <imageid> 
+docklock decrypt <imageid> 
 ```	
 ###Workflow
 ``` bash 

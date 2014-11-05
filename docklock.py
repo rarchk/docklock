@@ -10,32 +10,66 @@ import os,sys;
 import gnupg,tarfile
 
 class docklock:
-	def encrypt(self,passpharase,depList,wdir):
+	keydir=""
+	email=""
+	def init(self):
+		self.keydir=raw_input("Enter Directory where your keys are stored: ")
+		flag=raw_input("Want to generate key: y/n ");
+		if flag == 'y' or flag == 'Y' or flag == 'yes':
+			cDr=os.getcwd();
+			os.chdir(self.keydir);
+			os.system("gpg --gen-key");
+			os.chdir(cDr);
+		else: 
+			print "You are good to go!!"
+			print 		
+	def encrypt(self,depList,wdir):
+		self.email=raw_input("Set Signature for your mail<email id>: ")
 		wdir+="/aufs/diff/";
+		cDr=os.getcwd()
 		for i in depList:
+			image=i.split('\n')[0];
+			print wdir+image; 
+			os.system("tar -cf "+image+".tar "+wdir+image);
+			os.system("rm -rf "+wdir+image+"/*");
+						
+			gpg = gnupg.GPG(gnupghome=self.keydir)
+			with open(image+".tar", 'rb') as f:
+			    status = gpg.encrypt_file(
+			        f, recipients=[self.email],
+			        output= image+".tar.gpg")
+		#	print 'ok: ', status.ok
+		#	print 'status: ', status.status
+		#	print 'stderr: ', status.stderr
+			os.system("mv "+image+".tar.gpg "+wdir+image+"/");
+			os.system("rm "+image+".tar");
+
+	def decrypt(self,depList,wdir):
+		 secret=raw_input("Enter your passphrase: ")
+		 wdir+="/aufs/diff/";
+		 cDr=os.getcwd();
+		 for i in depList:
 			image=i.split('\n')[0]; 
 			print wdir+image;
-			os.system("tar -cvf "+image".tar "+wdir+image);
-			os.system("rm -rf "+wdir+image+"/*");
-			os.system("mv "+image+".tar "+wdir+image+"/");
 			
-			gpg = gnupg.GPG(gnupghome='/root')
-			with open(wdir+image+"/"+image+".tar", 'rb') as f:
-			    status = gpg.encrypt_file(
-			        f, recipients=[''],
-			        output= wdir+image+"/"+image+".tar.gpg")
+						
+			gpg = gnupg.GPG(gnupghome=self.keydir)
+			with open(wdir+image+"/"+image+".tar.gpg", 'rb') as f:
+			    status = gpg.decrypt_file(f, passphrase=secret,
+			    	output= wdir+image+"/"+image+".tar")
+		#	print 'ok: ', status.ok
+		#	print 'status: ', status.status
+		#	print 'stderr: ', status.stderr
+			os.chdir(wdir+image);
+		    	os.system("tar xf "+image+".tar");
+		   	os.system("rm "+image+".tar")
+		    	os.system("rm "+image+".tar.gpg")
+			os.chdir(cDr)
 
-			print 'ok: ', status.ok
-			print 'status: ', status.status
-			print 'stderr: ', status.stderr
-
-	def decrypt(self,CypherF,SourceF,passphrase):
-		 #os.system("echo "+passphrase+"|gpg --passphrase-fd 0  -d "+CypherF+">"+SourceF);
-		 os.system("echo "+passphrase+"|gpg --passphrase-fd 0  -d "+CypherF);
 
 if __name__ == '__main__':
-	if len(sys.argv) < 4:
-		print 'Usage: docklock <Action> <imageid> [passphrase]'
+	if len(sys.argv) < 3:
+		print 'Usage: docklock <Action> <imageid>'
 		sys.exit(1);
 	
 	aufsList='';
@@ -59,17 +93,9 @@ if __name__ == '__main__':
 		sys.exit(-1);
 
 	engine=docklock();
+	engine.init();
 	if (sys.argv[1] == 'encrypt'):
-		engine.encrypt(sys.argv[3],depList,wdir);
+		engine.encrypt(depList,wdir);
 	elif (sys.argv[1] == 'decrypt'):
-		engine.decrypt(sys.argv[2],sys.argv[3],depList,wdir);
+		engine.decrypt(depList,wdir);
 		
-#decrypt()
-#gpg = gnupg.GPG(gnupghome='/home/testgpguser/gpghome')
-#with open('my-encrypted.txt.gpg', 'rb') as f:
-#    status = gpg.decrypt_file(f, passphrase='my passphrase', output='my-decrypted.txt')
-#
-#print 'ok: ', status.ok
-#print 'status: ', status.status
-#print 'stderr: ', status.stderr
-
