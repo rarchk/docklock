@@ -40,5 +40,6 @@ A docker container can be seperated into three contexts:
 	- Or can stay in server... during runtime, which can be protected by firewalling the VM. 
 
 ### Working with gpg 
-We use python gnupg(gnu pgp) library to encrypt the /var/lib/docker/aufs/diffs of particular image contexts. Docklock.py also 
-contains, a flexible way to set up key in your preferred storage location.   
+- We use python gnupg(gnu pgp) library to encrypt the */var/lib/docker/aufs/diffs* of particular image contexts.
+- Docklock.py also contains, a flexible way to set up key in your preferred storage location. 
+- Each key is fingerprinted by email id of user.   

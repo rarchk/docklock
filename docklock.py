@@ -56,15 +56,21 @@ class docklock:
 			gpg = gnupg.GPG(gnupghome=self.keydir)
 			with open(wdir+image+"/"+image+".tar.gpg", 'rb') as f:
 			    status = gpg.decrypt_file(f, passphrase=secret,
-			    	output= wdir+image+"/"+image+".tar")
+			    	output= image+".tar")
 		#	print 'ok: ', status.ok
 		#	print 'status: ', status.status
 		#	print 'stderr: ', status.stderr
-			os.chdir(wdir+image);
+			
 		    	os.system("tar xf "+image+".tar");
+		    	try:
+		    		os.system("mv "+str(wdir[1:])+image+"/* "+wdir+image+"/")
+		    	except:
+		    		continue;	
+		    	os.system("rm -rf "+str(wdir[1:])+image)
+
 		   	os.system("rm "+image+".tar")
-		    	os.system("rm "+image+".tar.gpg")
-			os.chdir(cDr)
+		    	os.system("rm "+wdir+image+"/"+image+".tar.gpg")
+			
 
 
 if __name__ == '__main__':

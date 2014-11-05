@@ -4,4 +4,6 @@ Future Tasks
 
 - Another major feature, will be the presence of api which provides zero knowledge persistent store in third party storage services. 
 
-- Encryption is always a constraint, but a necessary one. It hinders many features of an unencrypted corollary. We need to think, of a more subtle way to realize these features. Right now encryption is forced, and not seamless.  
+- Encryption is always a constraint, but a necessary one. It hinders many features of an unencrypted corollary. We need to think, of a more subtle way to realize these features. Right now encryption is forced, and not seamless.
+
+- Not all layers need to be encrypted, currently we are encrypting all layers relating to particular image.   
